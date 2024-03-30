@@ -1,4 +1,4 @@
-package com.baranbatur.chatapp.dto;
+package com.baranbatur.chatapp.dto.request;
 
 import com.baranbatur.chatapp.util.enums.Gender;
 
@@ -24,6 +24,9 @@ public class RegisterUserDto {
         this.phoneNumber = phoneNumber;
         this.gender = gender;
         this.birthDate = birthDate;
+    }
+
+    public RegisterUserDto() {
     }
 
     public String getEmail() {

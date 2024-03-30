@@ -3,6 +3,7 @@ package com.baranbatur.chatapp.entity;
 import com.baranbatur.chatapp.util.enums.Gender;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -43,6 +44,10 @@ public class User implements UserDetails {
 
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    private Role role;
 
     public User(String username, String password, String firstName, String lastName, String email, String phone, Gender gender, Date birthDate, Date createdAt) {
         this.username = username;
@@ -159,7 +164,8 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.getName().toString());
+        return List.of(authority);
     }
 
     @Override
@@ -180,5 +186,18 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public User setRole(Role role) {
+        this.role = role;
+        return this;
     }
 }

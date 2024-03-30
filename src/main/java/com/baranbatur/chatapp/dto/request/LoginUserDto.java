@@ -1,4 +1,4 @@
-package com.baranbatur.chatapp.dto;
+package com.baranbatur.chatapp.dto.request;
 
 public class LoginUserDto {
 
@@ -10,11 +10,11 @@ public class LoginUserDto {
         this.password = password;
     }
 
-    public String getEmail() {
+    public String getUsername() {
         return username;
     }
 
-    public void setEmail(String email) {
+    public void setUsername(String email) {
         this.username = email;
     }
 
